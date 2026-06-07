@@ -8,7 +8,7 @@ watch:
 time_zone: Australia/Brisbane
 
 custom_fields:
-  size: "standard"
+  target_date: "2026-06-10" # YYYY-MM-DD; must be wrapped in quotes
 
 override variables:
 variables:
