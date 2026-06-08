@@ -33,7 +33,6 @@ async function assertAllRoutes(
     for (const route of routes) {
       await test.step(`Testing route: ${route}`, async () => {
         await page.goto(route);
-        await page.getByRole("link", { name: "Poll" }).click();
         const trmnlFrame = page.frameLocator("iframe");
 
         if (route === "/full" || route === "/quadrant") {
