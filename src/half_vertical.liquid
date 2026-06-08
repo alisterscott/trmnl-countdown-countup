@@ -3,8 +3,6 @@
     font-size: clamp(0.85rem, 6.2vw, 2.4rem);
     line-height: 1.05;
     white-space: normal;
-    text-align: center;
-    padding: 0 0.2rem;
   }
 
   #fdp-root.fdp-root--half-vertical .fdp-hv-count {
@@ -16,8 +14,6 @@
     font-size: clamp(0.85rem, 6vw, 2.4rem);
     line-height: 1.05;
     white-space: normal;
-    text-align: center;
-    padding: 0 0.2rem;
   }
 
   #fdp-root.fdp-root--half-vertical .fdp-hv-target {
@@ -48,23 +44,23 @@
 {% if size == "compact" %}
 <div class="layout layout--stretch fdp-root--half-vertical" id="fdp-root">
   <div class="grid grid--cols-1 gap--[12px] fdp-equal-rows">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-heading fdp-hv-heading">{{ heading_text }} {{ day_count }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold text--center p--[0.2rem] fdp-text fdp-heading fdp-hv-heading">{{ heading_text }} {{ day_count }}</div>
     {%- if use_custom_text -%}
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation fdp-hv-relation">{{ custom_text }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold text--center p--[0.2rem] fdp-text fdp-relation fdp-hv-relation">{{ custom_text }}</div>
     {%- else -%}
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation fdp-hv-relation">{{ relation_text }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold text--center p--[0.2rem] fdp-text fdp-relation fdp-hv-relation">{{ relation_text }}</div>
     {%- endif -%}
   </div>
 </div>
 {% else %}
 <div class="layout layout--stretch fdp-root--half-vertical" id="fdp-root">
   <div class="grid grid--cols-1 gap--[12px]">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-count fdp-hv-count">{{ day_count }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation fdp-hv-relation">{{ relation_text }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-number fdp-count fdp-hv-count">{{ day_count }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold text--center p--[0.2rem] fdp-text fdp-relation fdp-hv-relation">{{ relation_text }}</div>
     {%- if use_custom_text -%}
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-hv-target">{{ custom_text }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-text fdp-target fdp-hv-target">{{ custom_text }}</div>
     {%- else -%}
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-hv-target fdp-target-combined">{{ target_day }} {{ target_month }} {{ target_year }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-text fdp-target fdp-hv-target fdp-target-combined">{{ target_day }} {{ target_month }} {{ target_year }}</div>
     {%- endif -%}
   </div>
 </div>
