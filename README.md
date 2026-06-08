@@ -4,6 +4,8 @@ A retro inspired countdown and countup to a date display for TRMNL devices.
 
 ![screenshot](./media/screen.png)
 
+![screenshot light](./media/screenlight.png)
+
 ## Setup
 
 1. `brew install rbenv`
