@@ -82,10 +82,6 @@
 
 
 <style>
-  #fdp-root {
-    font-family: Inter, system-ui, Arial, sans-serif;
-  }
-
   /* Tile seam effect for flip clock aesthetic */
   .fdp-tile {
     overflow: hidden;
@@ -115,45 +111,45 @@
   }
 
   /* Responsive typography */
-  .fdp-full-heading { font-size: clamp(1rem, 6.2vw, 3.6rem); line-height: 1; }
-  .fdp-full-count { font-size: clamp(2rem, 22vw, 12rem); line-height: 0.9; }
-  .fdp-full-relation { font-size: clamp(1rem, 6.6vw, 3.8rem); line-height: 1.05; white-space: normal; }
-  .fdp-full-target { font-size: clamp(0.95rem, 6vw, 3.4rem); line-height: 1; }
+  .fdp-full-heading { font: 700 clamp(1rem, 6.2vw, 3.6rem) / 1 Inter, system-ui, Arial, sans-serif; }
+  .fdp-full-count { font: 700 clamp(2rem, 22vw, 12rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+  .fdp-full-relation { font: 700 clamp(1rem, 6.6vw, 3.8rem) / 1.05 Inter, system-ui, Arial, sans-serif; white-space: normal; }
+  .fdp-full-target { font: 700 clamp(0.95rem, 6vw, 3.4rem) / 1 Inter, system-ui, Arial, sans-serif; }
 
-  .fdp-hh-heading { font-size: clamp(0.85rem, 5.2vw, 2.6rem); line-height: 1.05; white-space: normal; }
-  .fdp-hh-count { font-size: clamp(1.6rem, 16vw, 6.4rem); line-height: 0.9; }
-  .fdp-hh-relation { font-size: clamp(0.9rem, 5.5vw, 2.8rem); line-height: 1.05; white-space: normal; }
-  .fdp-hh-target { font-size: clamp(0.8rem, 5vw, 2.2rem); line-height: 1; }
+  .fdp-hh-heading { font: 700 clamp(0.85rem, 5.2vw, 2.6rem) / 1.05 Inter, system-ui, Arial, sans-serif; white-space: normal; }
+  .fdp-hh-count { font: 700 clamp(1.6rem, 16vw, 6.4rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+  .fdp-hh-relation { font: 700 clamp(0.9rem, 5.5vw, 2.8rem) / 1.05 Inter, system-ui, Arial, sans-serif; white-space: normal; }
+  .fdp-hh-target { font: 700 clamp(0.8rem, 5vw, 2.2rem) / 1 Inter, system-ui, Arial, sans-serif; }
 
-  .fdp-hv-heading { font-size: clamp(0.85rem, 6.2vw, 2.4rem); line-height: 1.05; white-space: normal; }
-  .fdp-hv-count { font-size: clamp(1.7rem, 18vw, 6.8rem); line-height: 0.9; }
-  .fdp-hv-relation { font-size: clamp(0.85rem, 6vw, 2.4rem); line-height: 1.05; white-space: normal; }
-  .fdp-hv-target { font-size: clamp(0.8rem, 5.5vw, 2.1rem); line-height: 1; }
+  .fdp-hv-heading { font: 700 clamp(0.85rem, 6.2vw, 2.4rem) / 1.05 Inter, system-ui, Arial, sans-serif; white-space: normal; }
+  .fdp-hv-count { font: 700 clamp(1.7rem, 18vw, 6.8rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+  .fdp-hv-relation { font: 700 clamp(0.85rem, 6vw, 2.4rem) / 1.05 Inter, system-ui, Arial, sans-serif; white-space: normal; }
+  .fdp-hv-target { font: 700 clamp(0.8rem, 5.5vw, 2.1rem) / 1 Inter, system-ui, Arial, sans-serif; }
 
-  .fdp-q-heading { font-size: clamp(0.7rem, 5.6vw, 2.2rem); line-height: 1; }
-  .fdp-q-count { font-size: clamp(1.4rem, 15vw, 5rem); line-height: 0.9; }
-  .fdp-q-relation { font-size: clamp(0.7rem, 5.2vw, 2rem); line-height: 1.05; white-space: normal; }
-  .fdp-q-target { font-size: clamp(0.65rem, 4.6vw, 1.8rem); line-height: 1; }
+  .fdp-q-heading { font: 700 clamp(0.7rem, 5.6vw, 2.2rem) / 1 Inter, system-ui, Arial, sans-serif; }
+  .fdp-q-count { font: 700 clamp(1.4rem, 15vw, 5rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+  .fdp-q-relation { font: 700 clamp(0.7rem, 5.2vw, 2rem) / 1.05 Inter, system-ui, Arial, sans-serif; white-space: normal; }
+  .fdp-q-target { font: 700 clamp(0.65rem, 4.6vw, 1.8rem) / 1 Inter, system-ui, Arial, sans-serif; }
 
   @media (min-width: 900px) {
-    .fdp-full-heading { font-size: clamp(1.3rem, 7vw, 4.8rem); }
-    .fdp-full-count { font-size: clamp(2.8rem, 24vw, 15rem); }
-    .fdp-full-relation { font-size: clamp(1.4rem, 7.5vw, 5rem); }
-    .fdp-full-target { font-size: clamp(1.25rem, 6.8vw, 4.2rem); }
+    .fdp-full-heading { font: 700 clamp(1.3rem, 7vw, 4.8rem) / 1 Inter, system-ui, Arial, sans-serif; }
+    .fdp-full-count { font: 700 clamp(2.8rem, 24vw, 15rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+    .fdp-full-relation { font: 700 clamp(1.4rem, 7.5vw, 5rem) / 1.05 Inter, system-ui, Arial, sans-serif; }
+    .fdp-full-target { font: 700 clamp(1.25rem, 6.8vw, 4.2rem) / 1 Inter, system-ui, Arial, sans-serif; }
 
-    .fdp-hh-heading { font-size: clamp(1rem, 5.8vw, 3.2rem); }
-    .fdp-hh-count { font-size: clamp(2rem, 18vw, 8rem); }
-    .fdp-hh-relation { font-size: clamp(1.05rem, 6vw, 3.3rem); }
-    .fdp-hh-target { font-size: clamp(0.95rem, 5.5vw, 2.8rem); }
+    .fdp-hh-heading { font: 700 clamp(1rem, 5.8vw, 3.2rem) / 1.05 Inter, system-ui, Arial, sans-serif; }
+    .fdp-hh-count { font: 700 clamp(2rem, 18vw, 8rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+    .fdp-hh-relation { font: 700 clamp(1.05rem, 6vw, 3.3rem) / 1.05 Inter, system-ui, Arial, sans-serif; }
+    .fdp-hh-target { font: 700 clamp(0.95rem, 5.5vw, 2.8rem) / 1 Inter, system-ui, Arial, sans-serif; }
 
-    .fdp-hv-heading { font-size: clamp(1rem, 6.8vw, 3rem); }
-    .fdp-hv-count { font-size: clamp(2.2rem, 20vw, 8.5rem); }
-    .fdp-hv-relation { font-size: clamp(1rem, 6.5vw, 3rem); }
-    .fdp-hv-target { font-size: clamp(0.95rem, 6vw, 2.7rem); }
+    .fdp-hv-heading { font: 700 clamp(1rem, 6.8vw, 3rem) / 1.05 Inter, system-ui, Arial, sans-serif; }
+    .fdp-hv-count { font: 700 clamp(2.2rem, 20vw, 8.5rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+    .fdp-hv-relation { font: 700 clamp(1rem, 6.5vw, 3rem) / 1.05 Inter, system-ui, Arial, sans-serif; }
+    .fdp-hv-target { font: 700 clamp(0.95rem, 6vw, 2.7rem) / 1 Inter, system-ui, Arial, sans-serif; }
 
-    .fdp-q-heading { font-size: clamp(0.9rem, 6vw, 2.8rem); }
-    .fdp-q-count { font-size: clamp(1.9rem, 17vw, 6.5rem); }
-    .fdp-q-relation { font-size: clamp(0.9rem, 5.8vw, 2.5rem); }
-    .fdp-q-target { font-size: clamp(0.85rem, 5.2vw, 2.3rem); }
+    .fdp-q-heading { font: 700 clamp(0.9rem, 6vw, 2.8rem) / 1 Inter, system-ui, Arial, sans-serif; }
+    .fdp-q-count { font: 700 clamp(1.9rem, 17vw, 6.5rem) / 0.9 Inter, system-ui, Arial, sans-serif; }
+    .fdp-q-relation { font: 700 clamp(0.9rem, 5.8vw, 2.5rem) / 1.05 Inter, system-ui, Arial, sans-serif; }
+    .fdp-q-target { font: 700 clamp(0.85rem, 5.2vw, 2.3rem) / 1 Inter, system-ui, Arial, sans-serif; }
   }
 </style>
