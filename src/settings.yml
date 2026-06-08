@@ -4,6 +4,8 @@ no_screen_padding: "no"
 dark_mode: "no"
 static_data:
 polling_verb: get
+framework_version: 3.1.1
+serverless_language: ""
 polling_url: ""
 polling_headers: ""
 polling_body: ""
@@ -17,7 +19,7 @@ custom_fields:
     github_url: https://github.com/alisterscott/trmnl-countdown-countup
   - keyname: target_date
     field_type: date
-    default: "2025-07-04" # YYYY-MM-DD; must be wrapped in quotes
+    default: "2027-12-31"
     name: Target Date
     description: Provide your target date
 name: Elegant Countdown Countup Display

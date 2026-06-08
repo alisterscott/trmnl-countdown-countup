@@ -22,6 +22,25 @@
     font-size: clamp(0.65rem, 4.6vw, 1.8rem);
     line-height: 1;
   }
+
+  /* TRMNL X emulator/profile: increase typography on wider displays. */
+  @media (min-width: 900px) {
+    #fdp-root.fdp-root--quadrant .fdp-q-heading {
+      font-size: clamp(0.9rem, 6vw, 2.8rem);
+    }
+
+    #fdp-root.fdp-root--quadrant .fdp-q-count {
+      font-size: clamp(1.9rem, 17vw, 6.5rem);
+    }
+
+    #fdp-root.fdp-root--quadrant .fdp-q-relation {
+      font-size: clamp(0.9rem, 5.8vw, 2.5rem);
+    }
+
+    #fdp-root.fdp-root--quadrant .fdp-q-target {
+      font-size: clamp(0.85rem, 5.2vw, 2.3rem);
+    }
+  }
 </style>
 
 <div class="layout layout--stretch fdp-root--quadrant" id="fdp-root">
