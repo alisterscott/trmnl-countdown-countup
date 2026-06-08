@@ -21,30 +21,37 @@ test("can see a standard sized display for a date in 2 days", async ({
   fs.copyFileSync(sourceFile, destFile);
 
   try {
-    //const routes = ["/quadrant", "/full", "/half_vertical", "/half_horizontal"];
-    const routes = ["/full"];
+    const routes = ["/full", "/half_horizontal", "/half_vertical", "/quadrant"];
 
     for (const route of routes) {
       await test.step(`Testing route: ${route}`, async () => {
         await page.goto(route);
         await page.getByRole("link", { name: "Poll" }).click();
         const trmnlFrame = page.frameLocator("iframe");
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-heading"))
-          .toHaveText("it is");
+        if (route === "/full" || route === "/quadrant") {
+          await expect
+            .soft(trmnlFrame.locator("div.fdp-heading"))
+            .toHaveText("it is");
+        }
         await expect.soft(trmnlFrame.locator("div.fdp-count")).toHaveText("2");
         await expect
           .soft(trmnlFrame.locator("div.fdp-relation"))
           .toHaveText("days until");
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-target-day"))
-          .toHaveText("10");
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-target-month"))
-          .toHaveText("June");
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-target-year"))
-          .toHaveText("2026");
+        if (route !== "/half_vertical") {
+          await expect
+            .soft(trmnlFrame.locator("div.fdp-target-day"))
+            .toHaveText("10");
+          await expect
+            .soft(trmnlFrame.locator("div.fdp-target-month"))
+            .toHaveText("June");
+          await expect
+            .soft(trmnlFrame.locator("div.fdp-target-year"))
+            .toHaveText("2026");
+        } else {
+          await expect
+            .soft(trmnlFrame.locator("div.fdp-target-combined"))
+            .toHaveText("10 June 2026");
+        }
       });
     }
   } finally {

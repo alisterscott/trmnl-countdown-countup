@@ -1,26 +1,26 @@
 ---
 strategy: static
-no_screen_padding: "no"
-dark_mode: "no"
-static_data:
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: 
 polling_verb: get
 framework_version: 3.1.1
-serverless_language: ""
-polling_url: ""
-polling_headers: ""
-polling_body: ""
+serverless_language: ''
+polling_url: ''
+polling_headers: ''
+polling_body: ''
 id: 327796
 custom_fields:
-  - keyname: author_bio
-    field_type: author_bio
-    name: Elegant Countdown Countup Display by Alister Scott
-    description: Retro inspired countdown and countup clock for your TRMNL dashboard. Perfect for tracking time until an event or time since an event.
-    category: life,productivity
-    github_url: https://github.com/alisterscott/trmnl-countdown-countup
-  - keyname: target_date
-    field_type: date
-    default: "2027-12-31"
-    name: Target Date
-    description: Provide your target date
+- keyname: author_bio
+  field_type: author_bio
+  name: Elegant Countdown Countup Display by Alister Scott
+  description: Retro inspired countdown and countup clock for your TRMNL dashboard. Perfect for tracking time until an event or time since an event.
+  category: life,productivity
+  github_url: https://github.com/alisterscott/trmnl-countdown-countup
+- keyname: target_date
+  field_type: date
+  default: '2027-12-31'
+  name: Target Date
+  description: Provide your target date
 name: Elegant Countdown Countup Display
 refresh_interval: 30
