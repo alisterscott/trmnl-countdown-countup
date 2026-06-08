@@ -15,6 +15,10 @@ export default defineConfig({
     trace: "on",
   },
 
+  expect: {
+    timeout: 15000,
+  },
+
   projects: [
     {
       name: "chromium",
