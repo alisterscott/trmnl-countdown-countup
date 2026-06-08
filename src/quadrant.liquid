@@ -1,15 +1,42 @@
-{% if size == "compact" %}
-<div class="layout layout--stretch" id="fdp-root">
-  <div class="grid grid--cols-1 gap--[12px] fdp-equal-rows">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-text--sm">{{ day_count }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-text--xs">{{ relation_text }}</div>
-  </div>
-</div>
-{% else %}
-<div class="layout layout--stretch" id="fdp-root">
+<style>
+  /* Quadrant needs tighter caps so all labels fit smaller tiles. */
+  #fdp-root.fdp-root--quadrant .fdp-q-heading {
+    font-size: clamp(0.7rem, 5.6vw, 2.2rem);
+    line-height: 1;
+  }
+
+  #fdp-root.fdp-root--quadrant .fdp-q-count {
+    font-size: clamp(1.4rem, 15vw, 5rem);
+    line-height: 0.9;
+  }
+
+  #fdp-root.fdp-root--quadrant .fdp-q-relation {
+    font-size: clamp(0.7rem, 5.2vw, 2rem);
+    line-height: 1.05;
+    white-space: normal;
+    text-align: center;
+    padding: 0 0.2rem;
+  }
+
+  #fdp-root.fdp-root--quadrant .fdp-q-target {
+    font-size: clamp(0.65rem, 4.6vw, 1.8rem);
+    line-height: 1;
+  }
+</style>
+
+<div class="layout layout--stretch fdp-root--quadrant" id="fdp-root">
   <div class="grid grid--cols-1 gap--[12px]">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-count">{{ day_count }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation">{{ relation_text }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-heading fdp-q-heading">it is</div>
+
+    <div class="grid grid--cols-2 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-count fdp-q-count">{{ day_count }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation fdp-q-relation">{{ relation_text }}</div>
+    </div>
+
+    <div class="grid grid--cols-3 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-q-target">{{ target_day }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-month fdp-text fdp-target fdp-q-target">{{ target_month }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-q-target">{{ target_year }}</div>
+    </div>
   </div>
 </div>
-{% endif %}
