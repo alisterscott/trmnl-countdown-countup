@@ -13,6 +13,14 @@
 {%- assign target_midnight_ts = resolved_target_date | date: "%s" | plus: 0 -%}
 {%- assign day_diff = target_midnight_ts | minus: today_midnight_ts | divided_by: 86400 -%}
 
+{%- assign today_day_num = today_date | date: "%d" | plus: 0 -%}
+{%- assign today_month_num = today_date | date: "%m" | plus: 0 -%}
+{%- assign today_year_num = today_date | date: "%Y" | plus: 0 -%}
+
+{%- assign target_day_num = resolved_target_date | date: "%d" | plus: 0 -%}
+{%- assign target_month_num = resolved_target_date | date: "%m" | plus: 0 -%}
+{%- assign target_year_num = resolved_target_date | date: "%Y" | plus: 0 -%}
+
 {%- assign day_count = day_diff -%}
 {%- assign relation = "until" -%}
 {%- if day_diff < 0 -%}
@@ -20,9 +28,40 @@
   {%- assign day_count = day_diff | times: -1 -%}
 {%- endif -%}
 
-{%- assign day_unit = "days" -%}
+{%- assign year_diff_abs = target_year_num | minus: today_year_num -%}
+{%- if year_diff_abs < 0 -%}
+  {%- assign year_diff_abs = year_diff_abs | times: -1 -%}
+{%- endif -%}
+
+{%- assign month_diff = target_year_num | minus: today_year_num | times: 12 -%}
+{%- assign month_diff = month_diff | plus: target_month_num | minus: today_month_num -%}
+{%- assign month_diff_abs = month_diff -%}
+{%- if month_diff_abs < 0 -%}
+  {%- assign month_diff_abs = month_diff_abs | times: -1 -%}
+{%- endif -%}
+
+{%- assign unit_base = "day" -%}
+
+{%- if target_month_num == today_month_num and target_day_num == today_day_num and year_diff_abs > 0 -%}
+  {%- assign day_count = year_diff_abs -%}
+  {%- assign unit_base = "year" -%}
+{%- elsif target_day_num == today_day_num and month_diff_abs > 0 -%}
+  {%- assign day_count = month_diff_abs -%}
+  {%- assign unit_base = "month" -%}
+{%- else -%}
+  {%- assign day_diff_mod_7 = day_count | modulo: 7 -%}
+  {%- if day_count > 0 and day_diff_mod_7 == 0 -%}
+  {%- assign week_count = day_count | divided_by: 7 -%}
+  {%- if week_count != 52 -%}
+    {%- assign day_count = week_count -%}
+    {%- assign unit_base = "week" -%}
+  {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign day_unit = unit_base | append: "s" -%}
 {%- if day_count == 1 -%}
-  {%- assign day_unit = "day" -%}
+  {%- assign day_unit = unit_base -%}
 {%- endif -%}
 
 {%- assign target_day = resolved_target_date | date: "%d" | plus: 0 -%}

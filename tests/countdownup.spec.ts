@@ -2,15 +2,18 @@ import { test, expect } from "@playwright/test";
 import fs from "fs";
 import path from "path";
 
-test("can see all display sizes for a date in 2 days", async ({ page }) => {
-  const sourceFile = path.join(__dirname, "in2days.trmnlp.yml");
+async function assertAllRoutes(
+  page: any,
+  sourceFileName: string,
+  expectedHeadingText: string,
+  expectedCountText: string,
+  expectedRelationText: string,
+  expectedDateDay: string,
+  expectedDateMonth: string,
+  expectedDateYear: string,
+) {
+  const sourceFile = path.join(__dirname, sourceFileName);
   const destFile = path.join(__dirname, "..", ".trmnlp.yml");
-  const expectedHeadingText = "it is";
-  const expectedDaysText = "2";
-  const expectedText = "days until";
-  const expectedDateDay = "10";
-  const expectedDateMonth = "June";
-  const expectedDateYear = "2026";
   const expectedFullDate = `${expectedDateDay} ${expectedDateMonth} ${expectedDateYear}`;
 
   if (!fs.existsSync(sourceFile)) {
@@ -21,8 +24,7 @@ test("can see all display sizes for a date in 2 days", async ({ page }) => {
     throw new Error(`Destination file not found: ${destFile}`);
   }
 
-  const originalContent = fs.readFileSync(destFile, "utf-8"); // Save original content to restore later
-
+  const originalContent = fs.readFileSync(destFile, "utf-8");
   fs.copyFileSync(sourceFile, destFile);
 
   try {
@@ -33,17 +35,20 @@ test("can see all display sizes for a date in 2 days", async ({ page }) => {
         await page.goto(route);
         await page.getByRole("link", { name: "Poll" }).click();
         const trmnlFrame = page.frameLocator("iframe");
+
         if (route === "/full" || route === "/quadrant") {
           await expect
             .soft(trmnlFrame.locator("div.fdp-heading"))
             .toHaveText(expectedHeadingText);
         }
+
         await expect
           .soft(trmnlFrame.locator("div.fdp-count"))
-          .toHaveText(expectedDaysText);
+          .toHaveText(expectedCountText);
         await expect
           .soft(trmnlFrame.locator("div.fdp-relation"))
-          .toHaveText(expectedText);
+          .toHaveText(expectedRelationText);
+
         if (route !== "/half_vertical") {
           await expect
             .soft(trmnlFrame.locator("div.fdp-target-day"))
@@ -62,262 +67,123 @@ test("can see all display sizes for a date in 2 days", async ({ page }) => {
       });
     }
   } finally {
-    fs.writeFileSync(destFile, originalContent, "utf-8"); // Restore original content
+    fs.writeFileSync(destFile, originalContent, "utf-8");
   }
+}
+
+test("can see all display sizes for a date in 2 days", async ({ page }) => {
+  await assertAllRoutes(
+    page,
+    "in2days.trmnlp.yml",
+    "it is",
+    "2",
+    "days until",
+    "10",
+    "June",
+    "2026",
+  );
 });
 
 test("can see a all display sizes for a date in 1 day", async ({ page }) => {
-  const sourceFile = path.join(__dirname, "in1day.trmnlp.yml");
-  const destFile = path.join(__dirname, "..", ".trmnlp.yml");
-  const expectedHeadingText = "it is";
-  const expectedDaysText = "1";
-  const expectedText = "day until";
-  const expectedDateDay = "10";
-  const expectedDateMonth = "June";
-  const expectedDateYear = "2026";
-  const expectedFullDate = `${expectedDateDay} ${expectedDateMonth} ${expectedDateYear}`;
-
-  if (!fs.existsSync(sourceFile)) {
-    throw new Error(`Source file not found: ${sourceFile}`);
-  }
-
-  if (!fs.existsSync(destFile)) {
-    throw new Error(`Destination file not found: ${destFile}`);
-  }
-
-  const originalContent = fs.readFileSync(destFile, "utf-8"); // Save original content to restore later
-
-  fs.copyFileSync(sourceFile, destFile);
-
-  try {
-    const routes = ["/full", "/half_horizontal", "/half_vertical", "/quadrant"];
-
-    for (const route of routes) {
-      await test.step(`Testing route: ${route}`, async () => {
-        await page.goto(route);
-        await page.getByRole("link", { name: "Poll" }).click();
-        const trmnlFrame = page.frameLocator("iframe");
-        if (route === "/full" || route === "/quadrant") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-heading"))
-            .toHaveText(expectedHeadingText);
-        }
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-count"))
-          .toHaveText(expectedDaysText);
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-relation"))
-          .toHaveText(expectedText);
-        if (route !== "/half_vertical") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-day"))
-            .toHaveText(expectedDateDay);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-month"))
-            .toHaveText(expectedDateMonth);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-year"))
-            .toHaveText(expectedDateYear);
-        } else {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-combined"))
-            .toHaveText(expectedFullDate);
-        }
-      });
-    }
-  } finally {
-    fs.writeFileSync(destFile, originalContent, "utf-8"); // Restore original content
-  }
+  await assertAllRoutes(
+    page,
+    "in1day.trmnlp.yml",
+    "it is",
+    "1",
+    "day until",
+    "10",
+    "June",
+    "2026",
+  );
 });
 
 test("can see all display sizes for today (shows zero)", async ({ page }) => {
-  const sourceFile = path.join(__dirname, "today.trmnlp.yml");
-  const destFile = path.join(__dirname, "..", ".trmnlp.yml");
-  const expectedHeadingText = "it is";
-  const expectedDaysText = "0";
-  const expectedText = "days until";
-  const expectedDateDay = "10";
-  const expectedDateMonth = "June";
-  const expectedDateYear = "2026";
-  const expectedFullDate = `${expectedDateDay} ${expectedDateMonth} ${expectedDateYear}`;
-
-  if (!fs.existsSync(sourceFile)) {
-    throw new Error(`Source file not found: ${sourceFile}`);
-  }
-
-  if (!fs.existsSync(destFile)) {
-    throw new Error(`Destination file not found: ${destFile}`);
-  }
-
-  const originalContent = fs.readFileSync(destFile, "utf-8"); // Save original content to restore later
-
-  fs.copyFileSync(sourceFile, destFile);
-
-  try {
-    const routes = ["/full", "/half_horizontal", "/half_vertical", "/quadrant"];
-
-    for (const route of routes) {
-      await test.step(`Testing route: ${route}`, async () => {
-        await page.goto(route);
-        await page.getByRole("link", { name: "Poll" }).click();
-        const trmnlFrame = page.frameLocator("iframe");
-        if (route === "/full" || route === "/quadrant") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-heading"))
-            .toHaveText(expectedHeadingText);
-        }
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-count"))
-          .toHaveText(expectedDaysText);
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-relation"))
-          .toHaveText(expectedText);
-        if (route !== "/half_vertical") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-day"))
-            .toHaveText(expectedDateDay);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-month"))
-            .toHaveText(expectedDateMonth);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-year"))
-            .toHaveText(expectedDateYear);
-        } else {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-combined"))
-            .toHaveText(expectedFullDate);
-        }
-      });
-    }
-  } finally {
-    fs.writeFileSync(destFile, originalContent, "utf-8"); // Restore original content
-  }
+  await assertAllRoutes(
+    page,
+    "today.trmnlp.yml",
+    "it is",
+    "0",
+    "days until",
+    "10",
+    "June",
+    "2026",
+  );
 });
 
 test("can see all display sizes for a date 2 days ago", async ({ page }) => {
-  const sourceFile = path.join(__dirname, "2daysago.trmnlp.yml");
-  const destFile = path.join(__dirname, "..", ".trmnlp.yml");
-  const expectedHeadingText = "it has been";
-  const expectedDaysText = "2";
-  const expectedText = "days since";
-  const expectedDateDay = "6";
-  const expectedDateMonth = "June";
-  const expectedDateYear = "2026";
-  const expectedFullDate = `${expectedDateDay} ${expectedDateMonth} ${expectedDateYear}`;
+  await assertAllRoutes(
+    page,
+    "2daysago.trmnlp.yml",
+    "it has been",
+    "2",
+    "days since",
+    "6",
+    "June",
+    "2026",
+  );
+});
 
-  if (!fs.existsSync(sourceFile)) {
-    throw new Error(`Source file not found: ${sourceFile}`);
-  }
+test("uses week for exact one-week difference", async ({ page }) => {
+  await assertAllRoutes(
+    page,
+    "1weekago.trmnlp.yml",
+    "it has been",
+    "1",
+    "week since",
+    "1",
+    "June",
+    "2026",
+  );
+});
 
-  if (!fs.existsSync(destFile)) {
-    throw new Error(`Destination file not found: ${destFile}`);
-  }
+test("uses month for exact one-month difference", async ({ page }) => {
+  await assertAllRoutes(
+    page,
+    "1monthago.trmnlp.yml",
+    "it has been",
+    "1",
+    "month since",
+    "8",
+    "May",
+    "2026",
+  );
+});
 
-  const originalContent = fs.readFileSync(destFile, "utf-8"); // Save original content to restore later
+test("uses year for exact one-year difference", async ({ page }) => {
+  await assertAllRoutes(
+    page,
+    "1yearago.trmnlp.yml",
+    "it has been",
+    "1",
+    "year since",
+    "8",
+    "June",
+    "2025",
+  );
+});
 
-  fs.copyFileSync(sourceFile, destFile);
-
-  try {
-    const routes = ["/full", "/half_horizontal", "/half_vertical", "/quadrant"];
-
-    for (const route of routes) {
-      await test.step(`Testing route: ${route}`, async () => {
-        await page.goto(route);
-        await page.getByRole("link", { name: "Poll" }).click();
-        const trmnlFrame = page.frameLocator("iframe");
-        if (route === "/full" || route === "/quadrant") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-heading"))
-            .toHaveText(expectedHeadingText);
-        }
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-count"))
-          .toHaveText(expectedDaysText);
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-relation"))
-          .toHaveText(expectedText);
-        if (route !== "/half_vertical") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-day"))
-            .toHaveText(expectedDateDay);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-month"))
-            .toHaveText(expectedDateMonth);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-year"))
-            .toHaveText(expectedDateYear);
-        } else {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-combined"))
-            .toHaveText(expectedFullDate);
-        }
-      });
-    }
-  } finally {
-    fs.writeFileSync(destFile, originalContent, "utf-8"); // Restore original content
-  }
+test("falls back to days for just under one year", async ({ page }) => {
+  await assertAllRoutes(
+    page,
+    "justunder1yearago.trmnlp.yml",
+    "it has been",
+    "364",
+    "days since",
+    "9",
+    "June",
+    "2025",
+  );
 });
 
 test("can see all display sizes for a date 1 day ago", async ({ page }) => {
-  const sourceFile = path.join(__dirname, "1dayago.trmnlp.yml");
-  const destFile = path.join(__dirname, "..", ".trmnlp.yml");
-  const expectedHeadingText = "it has been";
-  const expectedDaysText = "1";
-  const expectedText = "day since";
-  const expectedDateDay = "7";
-  const expectedDateMonth = "June";
-  const expectedDateYear = "2026";
-  const expectedFullDate = `${expectedDateDay} ${expectedDateMonth} ${expectedDateYear}`;
-
-  if (!fs.existsSync(sourceFile)) {
-    throw new Error(`Source file not found: ${sourceFile}`);
-  }
-
-  if (!fs.existsSync(destFile)) {
-    throw new Error(`Destination file not found: ${destFile}`);
-  }
-
-  const originalContent = fs.readFileSync(destFile, "utf-8"); // Save original content to restore later
-
-  fs.copyFileSync(sourceFile, destFile);
-
-  try {
-    const routes = ["/full", "/half_horizontal", "/half_vertical", "/quadrant"];
-
-    for (const route of routes) {
-      await test.step(`Testing route: ${route}`, async () => {
-        await page.goto(route);
-        await page.getByRole("link", { name: "Poll" }).click();
-        const trmnlFrame = page.frameLocator("iframe");
-        if (route === "/full" || route === "/quadrant") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-heading"))
-            .toHaveText(expectedHeadingText);
-        }
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-count"))
-          .toHaveText(expectedDaysText);
-        await expect
-          .soft(trmnlFrame.locator("div.fdp-relation"))
-          .toHaveText(expectedText);
-        if (route !== "/half_vertical") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-day"))
-            .toHaveText(expectedDateDay);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-month"))
-            .toHaveText(expectedDateMonth);
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-year"))
-            .toHaveText(expectedDateYear);
-        } else {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-target-combined"))
-            .toHaveText(expectedFullDate);
-        }
-      });
-    }
-  } finally {
-    fs.writeFileSync(destFile, originalContent, "utf-8"); // Restore original content
-  }
+  await assertAllRoutes(
+    page,
+    "1dayago.trmnlp.yml",
+    "it has been",
+    "1",
+    "day since",
+    "7",
+    "June",
+    "2026",
+  );
 });
