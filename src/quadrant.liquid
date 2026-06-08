@@ -1,66 +1,21 @@
-<style>
-  /* Quadrant needs tighter caps so all labels fit smaller tiles. */
-  #fdp-root.fdp-root--quadrant .fdp-q-heading {
-    font-size: clamp(0.7rem, 5.6vw, 2.2rem);
-    line-height: 1;
-  }
-
-  #fdp-root.fdp-root--quadrant .fdp-q-count {
-    font-size: clamp(1.4rem, 15vw, 5rem);
-    line-height: 0.9;
-  }
-
-  #fdp-root.fdp-root--quadrant .fdp-q-relation {
-    font-size: clamp(0.7rem, 5.2vw, 2rem);
-    line-height: 1.05;
-    white-space: normal;
-    text-align: center;
-    padding: 0 0.2rem;
-  }
-
-  #fdp-root.fdp-root--quadrant .fdp-q-target {
-    font-size: clamp(0.65rem, 4.6vw, 1.8rem);
-    line-height: 1;
-  }
-
-  /* TRMNL X emulator/profile: increase typography on wider displays. */
-  @media (min-width: 900px) {
-    #fdp-root.fdp-root--quadrant .fdp-q-heading {
-      font-size: clamp(0.9rem, 6vw, 2.8rem);
-    }
-
-    #fdp-root.fdp-root--quadrant .fdp-q-count {
-      font-size: clamp(1.9rem, 17vw, 6.5rem);
-    }
-
-    #fdp-root.fdp-root--quadrant .fdp-q-relation {
-      font-size: clamp(0.9rem, 5.8vw, 2.5rem);
-    }
-
-    #fdp-root.fdp-root--quadrant .fdp-q-target {
-      font-size: clamp(0.85rem, 5.2vw, 2.3rem);
-    }
-  }
-</style>
-
 <div class="layout layout--stretch fdp-root--quadrant" id="fdp-root">
   <div class="grid grid--cols-1 gap--[12px]">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-heading fdp-q-heading">{{ heading_text }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-text fdp-heading fdp-q-heading">{{ heading_text }}</div>
 
     <div class="grid grid--cols-2 gap--[12px]">
-      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-count fdp-q-count">{{ day_count }}</div>
-      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation fdp-q-relation">{{ relation_text }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-number fdp-count fdp-q-count">{{ day_count }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold text--center p--[0.2rem] fdp-text fdp-relation fdp-q-relation">{{ relation_text }}</div>
     </div>
 
     {%- if use_custom_text -%}
     <div class="grid grid--cols-1 gap--[12px]">
-      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-q-target">{{ custom_text }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-text fdp-target fdp-q-target">{{ custom_text }}</div>
     </div>
     {%- else -%}
     <div class="grid grid--cols-3 gap--[12px]">
-      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-target-day fdp-q-target">{{ target_day }}</div>
-      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-month fdp-text fdp-target fdp-target-month fdp-q-target">{{ target_month }}</div>
-      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-target-year fdp-q-target">{{ target_year }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-text fdp-target fdp-target-day fdp-q-target">{{ target_day }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-month fdp-text fdp-target fdp-target-month fdp-q-target">{{ target_month }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] border--[4px] border--gray-400 flex flex--row flex--center font--bold fdp-text fdp-target fdp-target-year fdp-q-target">{{ target_year }}</div>
     </div>
     {%- endif -%}
   </div>
