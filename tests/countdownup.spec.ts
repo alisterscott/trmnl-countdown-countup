@@ -187,3 +187,33 @@ test("can see all display sizes for a date 1 day ago", async ({ page }) => {
     "2026",
   );
 });
+
+test("uses week across leap day when difference is exactly 7 days", async ({
+  page,
+}) => {
+  await assertAllRoutes(
+    page,
+    "leapweekuntil.trmnlp.yml",
+    "it is",
+    "1",
+    "week until",
+    "6",
+    "March",
+    "2024",
+  );
+});
+
+test("falls back to days for Feb 29 anniversary in non-leap year", async ({
+  page,
+}) => {
+  await assertAllRoutes(
+    page,
+    "leapdaynonleapanniversary.trmnlp.yml",
+    "it has been",
+    "365",
+    "days since",
+    "29",
+    "February",
+    "2024",
+  );
+});
