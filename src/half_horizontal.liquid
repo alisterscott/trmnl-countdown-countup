@@ -48,7 +48,7 @@
 {% if size == "compact" %}
 <div class="layout layout--stretch fdp-root--half-horizontal" id="fdp-root">
   <div class="grid grid--cols-4 gap--[12px]">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-4 fdp-text fdp-heading fdp-hh-heading">it is {{ day_count }} {{ relation_text }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-4 fdp-text fdp-heading fdp-hh-heading">{{ heading_text }} {{ day_count }} {{ relation_text }}</div>
     <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-4 fdp-text fdp-target fdp-hh-target">{{ target_day }} {{ target_month }} {{ target_year }}</div>
   </div>
 </div>

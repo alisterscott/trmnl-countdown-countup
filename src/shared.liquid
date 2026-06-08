@@ -30,6 +30,10 @@
 {%- assign target_year = resolved_target_date | date: "%Y" -%}
 
 {%- assign relation_text = day_unit | append: " " | append: relation -%}
+{%- assign heading_text = "it is" -%}
+{%- if day_diff < 0 -%}
+  {%- assign heading_text = "it has been" -%}
+{%- endif -%}
 
 
 <style>
