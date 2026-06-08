@@ -6,17 +6,30 @@
 
 {%- assign today_timestamp = todays_date | date: "%s" | plus: trmnl.user.utc_offset -%}
 {%- assign today_date = today_timestamp | date: "%Y-%m-%d" -%}
-{%- assign day_of_month = today_timestamp | date: "%d" -%}
-{%- assign dow_index = today_timestamp | date: "%u" | plus: 0 | minus: 1 -%}
-{%- assign month_index = today_timestamp | date: "%m" | plus: 0 | minus: 1 -%}
-
-{%- assign locale_days = "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday" -%}
-{%- assign locale_months = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec" -%}
-{%- assign locale_days_arr = locale_days | split: "|" -%}
-{%- assign locale_months_arr = locale_months | split: "|" -%}
-{%- assign day_of_week = locale_days_arr[dow_index] -%}
-{%- assign month = locale_months_arr[month_index] -%}
 {%- assign size = trmnl.plugin_settings.custom_fields_values.size | default: "standard" | downcase -%}
+{%- assign resolved_target_date = trmnl.plugin_settings.custom_fields_values.target_date | default: target_date | default: today_date -%}
+
+{%- assign today_midnight_ts = today_date | date: "%s" | plus: 0 -%}
+{%- assign target_midnight_ts = resolved_target_date | date: "%s" | plus: 0 -%}
+{%- assign day_diff = target_midnight_ts | minus: today_midnight_ts | divided_by: 86400 -%}
+
+{%- assign day_count = day_diff -%}
+{%- assign relation = "until" -%}
+{%- if day_diff < 0 -%}
+  {%- assign relation = "since" -%}
+  {%- assign day_count = day_diff | times: -1 -%}
+{%- endif -%}
+
+{%- assign day_unit = "days" -%}
+{%- if day_count == 1 -%}
+  {%- assign day_unit = "day" -%}
+{%- endif -%}
+
+{%- assign target_day = resolved_target_date | date: "%d" | plus: 0 -%}
+{%- assign target_month = resolved_target_date | date: "%B" -%}
+{%- assign target_year = resolved_target_date | date: "%Y" -%}
+
+{%- assign relation_text = day_unit | append: " " | append: relation -%}
 
 
 <style>
@@ -78,6 +91,29 @@
 
   .fdp-text--xs {
     font-size: clamp(0.75rem, 6vw, 4.5rem);
+  }
+
+  .fdp-count {
+    font-size: clamp(2.25rem, 28vw, 16rem);
+    line-height: 0.9;
+  }
+
+  .fdp-heading {
+    font-size: clamp(1.15rem, 7vw, 4rem);
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+  }
+
+  .fdp-relation {
+    font-size: clamp(1.25rem, 8vw, 4.5rem);
+    line-height: 1.1;
+    text-align: center;
+    text-transform: lowercase;
+  }
+
+  .fdp-target {
+    font-size: clamp(1.2rem, 8vw, 4.75rem);
+    line-height: 1;
   }
 
   /* Equal-height rows for stacked grid layouts */

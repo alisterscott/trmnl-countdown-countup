@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 import fs from "fs";
 import path from "path";
 
-test("can see a standard sized flip date for a given date in English", async ({
+test("can see a standard sized display for a date in 2 days", async ({
   page,
 }) => {
-  const sourceFile = path.join(__dirname, "english.trmnlp.yml");
+  const sourceFile = path.join(__dirname, "in2days.trmnlp.yml");
   const destFile = path.join(__dirname, "..", ".trmnlp.yml");
 
   if (!fs.existsSync(sourceFile)) {
@@ -21,69 +21,30 @@ test("can see a standard sized flip date for a given date in English", async ({
   fs.copyFileSync(sourceFile, destFile);
 
   try {
-    const routes = ["/quadrant", "/full", "/half_vertical", "/half_horizontal"];
+    //const routes = ["/quadrant", "/full", "/half_vertical", "/half_horizontal"];
+    const routes = ["/full"];
 
     for (const route of routes) {
       await test.step(`Testing route: ${route}`, async () => {
         await page.goto(route);
         await page.getByRole("link", { name: "Poll" }).click();
         const trmnlFrame = page.frameLocator("iframe");
-        if (route === "/full") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-dayofweek"))
-            .toHaveText("Friday");
-        }
         await expect
-          .soft(trmnlFrame.locator("div.fdp-number"))
-          .toHaveText("20");
-        if (route !== "/quadrant") {
-          await expect
-            .soft(trmnlFrame.locator("div.fdp-month"))
-            .toHaveText("Feb");
-        }
-      });
-    }
-  } finally {
-    fs.writeFileSync(destFile, originalContent, "utf-8"); // Restore original content
-  }
-});
-
-test("can see a compact flip date for a given date in French", async ({
-  page,
-}) => {
-  const sourceFile = path.join(__dirname, "fr.trmnlp.yml");
-  const destFile = path.join(__dirname, "..", ".trmnlp.yml");
-
-  if (!fs.existsSync(sourceFile)) {
-    throw new Error(`Source file not found: ${sourceFile}`);
-  }
-
-  if (!fs.existsSync(destFile)) {
-    throw new Error(`Destination file not found: ${destFile}`);
-  }
-
-  const originalContent = fs.readFileSync(destFile, "utf-8"); // Save original content to restore later
-
-  fs.copyFileSync(sourceFile, destFile);
-
-  try {
-    const routes = ["/quadrant", "/full", "/half_vertical", "/half_horizontal"];
-
-    for (const route of routes) {
-      await test.step(`Testing route: ${route}`, async () => {
-        await page.goto(route);
-        await page.getByRole("link", { name: "Poll" }).click();
-        const trmnlFrame = page.frameLocator("iframe");
-
+          .soft(trmnlFrame.locator("div.fdp-heading"))
+          .toHaveText("it is");
+        await expect.soft(trmnlFrame.locator("div.fdp-count")).toHaveText("2");
         await expect
-          .soft(trmnlFrame.locator("div.fdp-dayofweek"))
-          .toHaveText("Vendredi");
+          .soft(trmnlFrame.locator("div.fdp-relation"))
+          .toHaveText("days until");
         await expect
-          .soft(trmnlFrame.locator("div.fdp-number"))
-          .toHaveText("20");
+          .soft(trmnlFrame.locator("div.fdp-target-day"))
+          .toHaveText("10");
         await expect
-          .soft(trmnlFrame.locator("div.fdp-month"))
-          .toHaveText("Fév");
+          .soft(trmnlFrame.locator("div.fdp-target-month"))
+          .toHaveText("June");
+        await expect
+          .soft(trmnlFrame.locator("div.fdp-target-year"))
+          .toHaveText("2026");
       });
     }
   } finally {

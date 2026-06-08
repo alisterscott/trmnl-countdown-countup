@@ -1,7 +1,16 @@
 <div class="layout layout--stretch" id="fdp-root">
-  <div class="grid grid--cols-2 gap--[12px] fdp-equal-rows">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-2 fdp-dayofweek fdp-text fdp-text--dayofweek{{ dow_size_class }}">{{ day_of_week }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number">{{ day_of_month }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-month fdp-text">{{ month }}</div>
+  <div class="grid grid--cols-1 gap--[12px]">
+    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-heading">it is</div>
+
+    <div class="grid grid--cols-2 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-count">{{ day_count }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation">{{ relation_text }}</div>
+    </div>
+
+    <div class="grid grid--cols-3 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-target-day">{{ target_day }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-month fdp-text fdp-target fdp-target-month">{{ target_month }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-target-year">{{ target_year }}</div>
+    </div>
   </div>
 </div>
