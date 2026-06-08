@@ -52,10 +52,16 @@
       <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation fdp-q-relation">{{ relation_text }}</div>
     </div>
 
+    {%- if use_custom_text -%}
+    <div class="grid grid--cols-1 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-q-target">{{ custom_text }}</div>
+    </div>
+    {%- else -%}
     <div class="grid grid--cols-3 gap--[12px]">
       <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-target-day fdp-q-target">{{ target_day }}</div>
       <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-month fdp-text fdp-target fdp-target-month fdp-q-target">{{ target_month }}</div>
       <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-target-year fdp-q-target">{{ target_year }}</div>
     </div>
+    {%- endif -%}
   </div>
 </div>

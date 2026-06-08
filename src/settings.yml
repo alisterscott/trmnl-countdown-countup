@@ -22,5 +22,12 @@ custom_fields:
   default: '2027-12-31'
   name: Target Date
   description: Provide your target date
+- keyname: custom_text
+  field_type: string
+  default: ''
+  name: Custom Text
+  description: This appears instead of the date on the display, eg. "our wedding!" becomes "it is 1 week until our wedding!"
+  optional: true
+  maxlength: 20
 name: Elegant Countdown Countup Display
 refresh_interval: 30

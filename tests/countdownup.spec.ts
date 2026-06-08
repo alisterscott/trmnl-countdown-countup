@@ -216,3 +216,68 @@ test("falls back to days for Feb 29 anniversary in non-leap year", async ({
     "2024",
   );
 });
+
+async function assertAllRoutesWithCustomText(
+  page: any,
+  sourceFileName: string,
+  expectedHeadingText: string,
+  expectedCountText: string,
+  expectedRelationText: string,
+  expectedCustomText: string,
+) {
+  const sourceFile = path.join(__dirname, sourceFileName);
+  const destFile = path.join(__dirname, "..", ".trmnlp.yml");
+
+  if (!fs.existsSync(sourceFile)) {
+    throw new Error(`Source file not found: ${sourceFile}`);
+  }
+
+  if (!fs.existsSync(destFile)) {
+    throw new Error(`Destination file not found: ${destFile}`);
+  }
+
+  const originalContent = fs.readFileSync(destFile, "utf-8");
+  fs.copyFileSync(sourceFile, destFile);
+
+  try {
+    const routes = ["/full", "/half_horizontal", "/half_vertical", "/quadrant"];
+
+    for (const route of routes) {
+      await test.step(`Testing route: ${route}`, async () => {
+        await page.goto(route);
+        const trmnlFrame = page.frameLocator("iframe");
+
+        if (route === "/full" || route === "/quadrant") {
+          await expect
+            .soft(trmnlFrame.locator("div.fdp-heading"))
+            .toHaveText(expectedHeadingText);
+        }
+
+        await expect
+          .soft(trmnlFrame.locator("div.fdp-count"))
+          .toHaveText(expectedCountText);
+        await expect
+          .soft(trmnlFrame.locator("div.fdp-relation"))
+          .toHaveText(expectedRelationText);
+
+        // Check that custom text is displayed instead of date elements
+        await expect
+          .soft(trmnlFrame.locator("div.fdp-target"))
+          .toContainText(expectedCustomText);
+      });
+    }
+  } finally {
+    fs.writeFileSync(destFile, originalContent, "utf-8");
+  }
+}
+
+test("displays custom_text instead of target date", async ({ page }) => {
+  await assertAllRoutesWithCustomText(
+    page,
+    "customtext.trmnlp.yml",
+    "it is",
+    "1",
+    "week until",
+    "our wedding",
+  );
+});

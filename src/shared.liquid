@@ -68,6 +68,12 @@
 {%- assign target_month = resolved_target_date | date: "%B" -%}
 {%- assign target_year = resolved_target_date | date: "%Y" -%}
 
+{%- assign custom_text = trmnl.plugin_settings.custom_fields_values.custom_text | default: "" -%}
+{%- assign use_custom_text = false -%}
+{%- if custom_text != "" and custom_text != nil -%}
+  {%- assign use_custom_text = true -%}
+{%- endif -%}
+
 {%- assign relation_text = day_unit | append: " " | append: relation -%}
 {%- assign heading_text = "it is" -%}
 {%- if day_diff < 0 -%}
