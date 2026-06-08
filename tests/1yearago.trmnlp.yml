@@ -8,11 +8,11 @@ watch:
 time_zone: Australia/Brisbane
 
 custom_fields:
-  size: "standard"
+  target_date: "2025-06-08" # YYYY-MM-DD; must be wrapped in quotes
 
 override variables:
 variables:
   trmnl:
     user:
       locale: "en"
-  testing_date: "2026-02-20" # Friday
+  testing_date: "2026-06-08"

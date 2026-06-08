@@ -1,16 +1,79 @@
+<style>
+  #fdp-root.fdp-root--half-horizontal .fdp-hh-heading {
+    font-size: clamp(0.85rem, 5.2vw, 2.6rem);
+    line-height: 1.05;
+    white-space: normal;
+    text-align: center;
+    padding: 0 0.2rem;
+  }
+
+  #fdp-root.fdp-root--half-horizontal .fdp-hh-count {
+    font-size: clamp(1.6rem, 16vw, 6.4rem);
+    line-height: 0.9;
+  }
+
+  #fdp-root.fdp-root--half-horizontal .fdp-hh-relation {
+    font-size: clamp(0.9rem, 5.5vw, 2.8rem);
+    line-height: 1.05;
+    white-space: normal;
+    text-align: center;
+    padding: 0 0.2rem;
+  }
+
+  #fdp-root.fdp-root--half-horizontal .fdp-hh-target {
+    font-size: clamp(0.8rem, 5vw, 2.2rem);
+    line-height: 1;
+  }
+
+  /* TRMNL X emulator/profile: increase typography on wider displays. */
+  @media (min-width: 900px) {
+    #fdp-root.fdp-root--half-horizontal .fdp-hh-heading {
+      font-size: clamp(1rem, 5.8vw, 3.2rem);
+    }
+
+    #fdp-root.fdp-root--half-horizontal .fdp-hh-count {
+      font-size: clamp(2rem, 18vw, 8rem);
+    }
+
+    #fdp-root.fdp-root--half-horizontal .fdp-hh-relation {
+      font-size: clamp(1.05rem, 6vw, 3.3rem);
+    }
+
+    #fdp-root.fdp-root--half-horizontal .fdp-hh-target {
+      font-size: clamp(0.95rem, 5.5vw, 2.8rem);
+    }
+  }
+</style>
+
 {% if size == "compact" %}
-<div class="layout layout--stretch" id="fdp-root">
+<div class="layout layout--stretch fdp-root--half-horizontal" id="fdp-root">
   <div class="grid grid--cols-4 gap--[12px]">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-2 fdp-dayofweek fdp-text fdp-text--smm">{{ day_of_week }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-text--sm">{{ day_of_month }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-month fdp-text fdp-text--sm">{{ month }}</div>
+    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-4 fdp-text fdp-heading fdp-hh-heading">{{ heading_text }} {{ day_count }} {{ relation_text }}</div>
+    {%- if use_custom_text -%}
+    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-4 fdp-text fdp-target fdp-hh-target">{{ custom_text }}</div>
+    {%- else -%}
+    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center col--span-4 fdp-text fdp-target fdp-hh-target">{{ target_day }} {{ target_month }} {{ target_year }}</div>
+    {%- endif -%}
   </div>
 </div>
 {% else %}
-<div class="layout layout--stretch" id="fdp-root">
-  <div class="grid grid--cols-2 gap--[12px]">
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number">{{ day_of_month }}</div>
-    <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-month fdp-text">{{ month }}</div>
+<div class="layout layout--stretch fdp-root--half-horizontal" id="fdp-root">
+  <div class="grid grid--cols-1 gap--[12px]">
+    <div class="grid grid--cols-2 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-number fdp-count fdp-hh-count">{{ day_count }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-relation fdp-hh-relation">{{ relation_text }}</div>
+    </div>
+    {%- if use_custom_text -%}
+    <div class="grid grid--cols-1 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-hh-target">{{ custom_text }}</div>
+    </div>
+    {%- else -%}
+    <div class="grid grid--cols-3 gap--[12px]">
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-hh-target fdp-target-day">{{ target_day }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-hh-target fdp-target-month">{{ target_month }}</div>
+      <div class="fdp-tile bg--black text--white rounded--[12px] flex flex--row flex--center fdp-text fdp-target fdp-hh-target fdp-target-year">{{ target_year }}</div>
+    </div>
+    {%- endif -%}
   </div>
 </div>
 {% endif %}

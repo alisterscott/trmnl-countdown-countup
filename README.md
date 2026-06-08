@@ -1,10 +1,10 @@
-# trmnl-flip-date
+# trmnl-countdown-countup
 
-A retro inspired flip date clock, with internationalisation support. Built for the TRMNL device.
+A retro inspired countdown and countup to a date display for TRMNL devices.
 
 ![screenshot](./media/screen.png)
 
-![screenshot of screen in Korean](./media/screenshotko.png)
+![screenshot light](./media/screenlight.png)
 
 ## Setup
 

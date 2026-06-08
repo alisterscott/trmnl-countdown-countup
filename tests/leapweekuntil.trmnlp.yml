@@ -8,12 +8,11 @@ watch:
 time_zone: Australia/Brisbane
 
 custom_fields:
-  target_date: "2026-06-29" # YYYY-MM-DD; must be wrapped in quotes
-  custom_text: "our wedding!"
+  target_date: "2024-03-06" # YYYY-MM-DD; must be wrapped in quotes
 
 override variables:
 variables:
   trmnl:
     user:
       locale: "en"
-  testing_date: ""
+  testing_date: "2024-02-28"

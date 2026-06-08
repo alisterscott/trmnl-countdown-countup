@@ -6,6 +6,7 @@ export default defineConfig({
   testDir: "./tests",
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
 
   workers: 1,
   reporter: "html",
@@ -13,6 +14,10 @@ export default defineConfig({
     baseURL: "http://localhost:4567",
     screenshot: "only-on-failure",
     trace: "on",
+  },
+
+  expect: {
+    timeout: 10000,
   },
 
   projects: [
